@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { Container, Content, Thumbnail, Card, CardItem, Body, Label, Left, Button } from 'native-base';
 import HeaderComponent from '../component/HeaderComponent'
 import ContactScreen from './ContactScreen';
+import Styles from './Styles';
+import {title} from '../constants/constTitles'
 
 class ProfileScreen extends Component {
     
@@ -16,20 +18,17 @@ class ProfileScreen extends Component {
     render() {
         return (
             <Container>
-                <HeaderComponent />
+                <HeaderComponent title={title.Profile}/>
                 <Content>
                     <View>
-                        <View style={{ alignItems: 'center', backgroundColor: 'lightskyblue', height: 80, }}>
-                            <Text style={{fontSize:20, fontWeight: 'bold', top: 50}}>  Purvang </Text>
+                        <View style={Styles.profileHeaderView}>
+                            <Text style={Styles.profileHeaderText}>  Purvang </Text>
                         </View>
-                        <View style={{left: 20, top: -30}}> 
-                                <Thumbnail source={require('../images/user_profile.png')} style={{width: 60, height: 60}}/>
+                        <View style={Styles.profileHeaderIconView}> 
+                            <Thumbnail source={require('../images/user_profile.png')} style={Styles.profileHeaderIconStyle}/>
                         </View>
                         <View>
                             <ContactScreen />
-                            {/* <Button style={{padding: 10}} rounded info>
-                                <Text style={{ fontWeight: 'bold',}}>Contact Book</Text>
-                            </Button> */}
                         </View>
                     </View>
                 </Content>

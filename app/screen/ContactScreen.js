@@ -7,7 +7,7 @@ import ContactListTab from '../component/ContactListTab'
 class ContactScreen extends Component {
     render() {
         return (
-            <Container >
+            <Container>
                 <Tabs>
                     <Tab heading={ <TabHeading><Icon name="address-book-o" size={26} /></TabHeading>}>
                         <ContactListTab />

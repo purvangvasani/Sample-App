@@ -9,6 +9,7 @@ class ContactListTab extends Component {
     renderContactCard=()=> {
         return this.props.prod.Contacts.map((cont, index) =>
             <ContactCard
+                style={{height: 500}}
                 key={index}
                 contact_name={cont.ContactName}
                 contact_number={cont.ContactNumber}
@@ -18,7 +19,7 @@ class ContactListTab extends Component {
 
     render() {
         return (
-            <View style={{ flex:1, height: 5000}}>
+            <View>
                 <ScrollView>
                     <Container>
                         <Content padder>

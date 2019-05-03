@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Text, TextInput } from 'react-native';
-import { Container, Content, Input, Label, Button } from 'native-base';
+import { Container, Content, Button } from 'native-base';
 import {connect} from 'react-redux'
+
 import {addContactInfo} from '../../actions/contact'
+
+import Styles from './Styles';
 
 class AddContactList extends Component {
 
@@ -53,15 +56,15 @@ class AddContactList extends Component {
                     <TextInput 
                         ref={input => { this.nameInput = input }}
                         onChangeText={this.handleNameChange}
-                        style={{borderWidth: 1, borderColor: 'lightgrey', marginBottom: 5,}}
+                        style={Styles.addContactTextInput}
                         placeholder = "Contact Name"/>
                     <TextInput 
                         ref={input => { this.numberInput = input }}
                         onChangeText={this.handleNumberChange}
-                        style={{borderWidth: 1, borderColor: 'lightgrey',marginBottom: 5,}}
+                        style={Styles.addContactTextInput}
                         placeholder = "Contact Number"/>
-                    <Button style={{paddingLeft: 15, paddingRight: 15}} onPress={this.handleAddEvent}> 
-                        <Text style={{color: 'white', fontWeight: 'bold',}}>Add</Text>
+                    <Button style={Styles.addContactButtonView} onPress={this.handleAddEvent}> 
+                        <Text style={Styles.addContactButtonText}>Add</Text>
                     </Button>
                 </Content>
             </Container>

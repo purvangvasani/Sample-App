@@ -5,11 +5,15 @@ import {connect} from 'react-redux'
 
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {authAddUser} from '../../actions/Auth'
-
+import {title} from '../constants/constTitles'
 import Styles from './Styles'
 import HeaderComponent from '../component/HeaderComponent';
 
 class HomeScreen extends Component {
+
+  state={
+    isLogged: false
+  }
 
   static navigationOptions = {
     drawerIcon: ({ tintColor }) => (
@@ -17,23 +21,23 @@ class HomeScreen extends Component {
     )
   }
 
-  handleLogout=()=>{
-    this.props.addUser(this.props.prod.FullName, this.props.prod.Email, this.props.prod.Password, false)
-    this.props.navigation.navigate('Home')
-  }
+  // handleLogout=()=>{
+  //   this.props.addUser(this.props.prod.FullName, this.props.prod.Email, this.props.prod.Password, false)
+  //   this.props.navigation.navigate('Home')
+  // }
 
   render() {
-    if(this.props.prod.isLogged){
+    if(this.state.isLogged){
       return (
         <Container>
-          <HeaderComponent />
+          <HeaderComponent title={title.Home}/>
           <Content padder>
-            <View style={Styles.containerOne}>
-              <Text style={Styles.headText}>Welcome, {this.props.prod.FullName} </Text>
+            <View style={Styles.wrapper}>
+              <Text style={Styles.headerText}>Welcome, </Text>
             </View>
             <View> 
               <Button block onPress={this.handleLogout}>
-                <Text style={{fontSize: 17, fontWeight: 'bold', color: 'white'}}>Logout</Text>
+                <Text style={Styles.buttonLogoutStyle}>Logout</Text>
               </Button>
             </View>
           </Content>
@@ -45,8 +49,8 @@ class HomeScreen extends Component {
         <Container>
           <HeaderComponent />
           <Content padder>
-            <View style={Styles.containerOne}>
-              <Text style={Styles.headText}>Home Screen </Text>
+            <View style={Styles.wrapper}>
+              <Text style={Styles.headerText}>Home Screen </Text>
             </View>
           </Content>
         </Container>

@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {createDrawerNavigator, DrawerItems, createAppContainer} from 'react-navigation'
 import {SafeAreaView, ScrollView} from 'react-native'
+import Icon from 'react-native-vector-icons/dist/Entypo';
 
 import AuthScreen from './screen/AuthScreen';
 import HomeScreen from './screen/HomeScreen';
 import ProfileScreen from './screen/ProfileScreen';
+import GalleryScreen from './screen/GalleryScreen';
 
 class App extends Component {
 
@@ -28,11 +30,17 @@ const CustomDrawerComponent = (props) => (
 const AppDrawerNavigator = createDrawerNavigator({
   Home:  HomeScreen,
   Profile: ProfileScreen,
-  Login: AuthScreen,
+  Gallery: GalleryScreen,
+  Login: {screen: AuthScreen},
 }, 
 {
   contentComponent : CustomDrawerComponent,
   drawerWidth:300,
+  defaultNavigationOptions : {
+    drawerIcon: ({ tintColor }) => (
+      <Icon name="login" style={{fontSize : 24, color:tintColor}} />
+    )
+  },
   contentOptions:{
     activeTintColor:'#3C53B4'
   },

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, Alert } from 'react-native'
 import {connect} from 'react-redux'
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
-import {authAddUser} from '../../actions/Auth'
+import {authUpdateUser} from '../../actions/Auth'
 
 import Styles from './Styles'
-import { Container, Content, Text, Card, CardItem, Input, Button } from 'native-base';
+import { Container, Content, Text, Card, CardItem, Button, Col, Grid } from 'native-base';
 
 class LoginScreen extends Component {
 
@@ -19,24 +20,26 @@ class LoginScreen extends Component {
   }
 
   handleLogIn=()=>{
-    if(this.state.Email === '' || this.state.Password === ''){
-      alert("Please Fill all Fields...")
-    }
-    else if(this.state.Email === this.props.prod.Email){
-      if(this.state.Password === this.props.prod.Password){
-        this.setState({
-          isLogged: true
-        })
-        this.props.addUser(this.props.prod.FullName, this.props.prod.Email, this.props.prod.Password, true)
-        this.props.navigation.navigate('Home')
-        this.handleClear()
+    for(let i = 0; i< this.props.prod.length; i++){
+      if(this.state.Email === '' || this.state.Password === ''){
+        alert("Please Fill all Fields...")
+      }
+      else if(this.state.Email === this.props.prod[i].Email){
+        if(this.state.Password === this.props.prod[i].Password){
+          this.setState({
+            isLogged: true
+          })
+          this.props.updateUser(this.props.prod[i].id, this.props.prod[i].FullName, this.props.prod[i].Email, this.props.prod[i].Password, true)
+          alert("Successfully Logged In")
+          this.handleClear()
+        }
+        else{
+          alert("Password Doesn't Match..")
+        }
       }
       else{
-        alert("Password Doesn't Match..")
+        alert("Please use correct credentials..")
       }
-    }
-    else{
-      alert("Please use correct credentials..")
     }
   }
 
@@ -62,6 +65,10 @@ class LoginScreen extends Component {
     }
   }
 
+  handleInfo=()=>{
+    Alert.alert("Use our Default Credentials", "Email: root@root.com, Password: root1")
+  }
+
   handlePassChange=(value)=>{
     if(value.length < 4){
       this.setState({
@@ -85,10 +92,19 @@ class LoginScreen extends Component {
     return (
       <Container>
           <Content padder>
-            <View style={Styles.containerOne}>
-              <Text style={Styles.headText}> 
-                Log in to your account
-              </Text>
+            <View style={Styles.wrapper}>
+              <Grid>
+                <Col size={75}>
+                  <Text style={Styles.headerText}> 
+                    Log in to your account
+                  </Text>
+                </Col>
+                <Col size={25}>
+                  <Button transparent onPress={this.handleInfo}>
+                    <Icon name="information-outline" style={Styles.iconLoginInfo}/>
+                  </Button>
+                </Col>
+              </Grid>
               <Card>
                 <CardItem>
                     <TextInput 
@@ -113,7 +129,7 @@ class LoginScreen extends Component {
                   </Button>
               </Card>
             </View>
-            <View style={Styles.containerTwo}>
+            <View style={Styles.wrapperOne}>
               <Button transparent small onPress={this.handleForgetPassword}>
                 <Text style={Styles.textUnderline}>Can't log in ?</Text>
               </Button>
@@ -125,16 +141,18 @@ class LoginScreen extends Component {
 }
 
 const mapStateToProps = state => {
+  
   return {
-    prod: state.auth
+    prod: state.auth.users
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-      addUser: (FullName, Email, Password, isLogged) => {   
-        dispatch(authAddUser(FullName, Email, Password, isLogged))
+      updateUser: (id, FullName, Email, Password, isLogged) => {   
+        dispatch(authUpdateUser(id, FullName, Email, Password, isLogged))
       }
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

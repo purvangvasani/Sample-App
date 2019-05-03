@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Keyboard, TextInput} from 'react-native'
 import { Button, Container, Text, Content, Input, View, Card, CardItem } from 'native-base';
 import {connect} from 'react-redux'
-import Toast, {DURATION} from 'react-native-easy-toast'
+import Toast from 'react-native-easy-toast'
 
 import {authAddUser} from '../../actions/Auth'
 import Styles from './Styles'
@@ -10,6 +10,7 @@ import Styles from './Styles'
 class SignUpScreen extends Component {
 
   state = {
+    id:0,
     isLogged: false,
     isEmail: false,
     isName: false,
@@ -71,7 +72,10 @@ class SignUpScreen extends Component {
       alert("Please Fill all Fields..")
     }
     else{
-      this.props.addUser(this.state.FullName, this.state.Email, this.state.Password, this.state.isLogged)
+      this.setState({
+        id: this.state.id + 1
+      })
+      this.props.addUser(this.state.id, this.state.FullName, this.state.Email, this.state.Password, this.state.isLogged)
       this.refs.toast.show('Success, Go to Login Page.')
       this.handleClear()
     }
@@ -92,8 +96,8 @@ class SignUpScreen extends Component {
     return (
         <Container>
           <Content padder>
-            <View style={Styles.containerOne}>
-              <Text style={Styles.headText}> 
+            <View style={Styles.wrapper}>
+              <Text style={Styles.headerText}> 
                 Sign Up 
               </Text>
               <Text style={Styles.subHeadText}>
@@ -130,22 +134,22 @@ class SignUpScreen extends Component {
                   </Button>
               </Card>
             </View>
-            <View style={Styles.containerTwo}>
+            <View style={Styles.wrapperOne}>
               <Text style={Styles.subHeadText}>Already have account? </Text>
               <Button transparent small onPress={this.handleLogIn}>
                 <Text style={Styles.textUnderline}>Sign In</Text>
               </Button>
             </View>
             <Toast
-                    ref="toast"
-                    style={{backgroundColor:'#3C53B4'}}
-                    position='bottom'
-                    positionValue={200}
-                    fadeInDuration={200}
-                    fadeOutDuration={500}
-                    opacity={0.9}
-                    textStyle={{color:'white', fontWeight: 'bold', fontSize: 16,}}
-                />
+                ref="toast"
+                style={Styles.toastBackgroundColor}
+                position='bottom'
+                positionValue={200}
+                fadeInDuration={200}
+                fadeOutDuration={500}
+                opacity={0.9}
+                textStyle={Styles.toastFontStyle}
+              />
           </Content>
         </Container>
     )
@@ -154,14 +158,14 @@ class SignUpScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    prod: state
+    prod: state.auth
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-      addUser: (FullName, Email, Password, isLogged) => {      
-            dispatch(authAddUser(FullName, Email, Password, isLogged))
+      addUser: (id, FullName, Email, Password, isLogged) => {      
+            dispatch(authAddUser(id, FullName, Email, Password, isLogged))
       }
   }
 }

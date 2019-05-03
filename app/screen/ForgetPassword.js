@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, TextInput, Keyboard } from 'react-native'
+import { View, TextInput, Keyboard } from 'react-native'
 import {connect} from 'react-redux'
 
-import {authAddUser} from '../../actions/Auth'
 import Styles from './Styles'
-import { Container, Content, Text, Card, CardItem, Input, Button, Label, Left, Grid, Row, Col } from 'native-base';
+import { Container, Content, Text, Card, CardItem, Button, Label, Left, Grid, Row, Col } from 'native-base';
 
 class ForgetPasswordScreen extends Component {
   constructor(props) {
@@ -57,8 +56,8 @@ class ForgetPasswordScreen extends Component {
     return (
       <Container>
           <Content padder>
-            <View style={Styles.containerOne}>
-              <Text style={Styles.headText}> 
+            <View style={Styles.wrapper}>
+              <Text style={Styles.headerText}> 
                 Reset your Password
               </Text>
               <Card>
@@ -77,12 +76,12 @@ class ForgetPasswordScreen extends Component {
                   </Button>
               </Card>
             </View>
-            <View style={Styles.containerOne}>
+            <View style={Styles.wrapper}>
             {this.state.isEnable ? 
             <Card padder>
               <CardItem>
                 <Left>
-                  <Text style={{fontSize: 20, fontWeight: 'bold',color: '#3C53B4'}}>Account Information</Text>
+                  <Text style={Styles.headerText}>Account Information</Text>
                 </Left>
               </CardItem>
               <CardItem>
@@ -90,12 +89,12 @@ class ForgetPasswordScreen extends Component {
                   <Row>
                     <Grid>
                       <Col>
-                        <Label style={{fontSize: 18}}>
+                        <Label style={Styles.labelText}>
                           Full Name :
                         </Label>
                       </Col>
                       <Col>
-                        <Label style={{fontSize:18, fontWeight:'bold'}}>
+                        <Label style={Styles.labelText}>
                           {this.props.prod.FullName}
                         </Label>
                       </Col>
@@ -104,12 +103,12 @@ class ForgetPasswordScreen extends Component {
                   <Row>
                     <Grid>
                       <Col>
-                        <Label style={{fontSize: 18}}>
+                        <Label style={Styles.labelText}>
                           Email :
                         </Label>
                       </Col>
                       <Col>
-                        <Label style={{fontSize:18, fontWeight:'bold'}}>
+                        <Label style={Styles.labelText}>
                           {this.props.prod.Email}
                         </Label>
                       </Col>
@@ -118,12 +117,12 @@ class ForgetPasswordScreen extends Component {
                   <Row>
                     <Grid>
                       <Col>
-                        <Label style={{fontSize: 18}}>
+                        <Label style={Styles.labelText}>
                           Password :
                         </Label>
                       </Col>
                       <Col>
-                        <Label style={{fontSize:18, fontWeight:'bold'}}>
+                        <Label style={Styles.labelText}>
                           {this.props.prod.Password}
                         </Label>
                       </Col>
@@ -144,25 +143,6 @@ class ForgetPasswordScreen extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-      fontSize: 20,
-      textAlign: 'center',
-      margin: 10,
-    },
-    instructions: {
-      textAlign: 'center',
-      color: '#333333',
-      marginBottom: 5,
-    },
-});
 
 const mapStateToProps = state => {
   return {
