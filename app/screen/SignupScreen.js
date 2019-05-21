@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import {Keyboard, TextInput} from 'react-native'
-import { Button, Container, Text, Content, Input, View, Card, CardItem } from 'native-base';
+import { Container, Button, Text, Content, Input, View, Card, CardItem } from 'native-base';
 import {connect} from 'react-redux'
 import Toast from 'react-native-easy-toast'
-
 import {authAddUser} from '../../actions/Auth'
 import Styles from './Styles'
+import theme from '../../Theme/theme';
+import { variable } from '../../Theme/variable';
+import { validateName, validateEmail, validatePassword } from '../component/validate';
 
 class SignUpScreen extends Component {
 
@@ -21,13 +23,13 @@ class SignUpScreen extends Component {
   }
   
   nameChangeHandler=(value)=>{
-    if(value.length < 4){
+    if(!validateName(value)){
       this.setState({
         FullName: '',
         isName: true,
-      })  
+      })
     }
-    else if(value.length > 4){
+    else{
       this.setState({
         FullName: value,
         isName: false,
@@ -36,30 +38,45 @@ class SignUpScreen extends Component {
   }
 
   emailChangeHandler=(value)=>{
-    var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; 
-
-    if(pattern.test(value)){
-      this.setState({
-        Email: value,
-        isEmail: false
-      }) 
-    }
-    else if(!pattern.test(value)){
+    
+    let resp = validateEmail(value);
+    
+    if(resp === 0){
       this.setState({
         Email: '',
         isEmail: true
       }) 
     }
+    else if(resp === 1){
+      this.setState({
+        Email: value,
+        isEmail: false
+      }) 
+    }
+    // var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; 
+
+    // if(pattern.test(value)){
+    //   this.setState({
+    //     Email: value,
+    //     isEmail: false
+    //   }) 
+    // }
+    // else if(!pattern.test(value)){
+    //   this.setState({
+    //     Email: '',
+    //     isEmail: true
+    //   }) 
+    // }
   }
 
   passwordChangeHandler=(value)=>{
-    if(value.length <= 4){
+    if(!validatePassword(value)){
       this.setState({
         Password: '',
         isPass: true,
-      })  
+      })
     }
-    else if(value.length > 4){
+    else{
       this.setState({
         Password: value,
         isPass: false,
@@ -68,17 +85,15 @@ class SignUpScreen extends Component {
   }
 
   handleRegister=()=>{
-    if(this.state.Email === '' || this.state.Password === '' || this.state.FullName === ''){
-      alert("Please Fill all Fields..")
-    }
-    else{
-      this.setState({
-        id: this.state.id + 1
-      })
-      this.props.addUser(this.state.id, this.state.FullName, this.state.Email, this.state.Password, this.state.isLogged)
-      this.refs.toast.show('Success, Go to Login Page.')
-      this.handleClear()
-    }
+    
+    this.setState({
+      id: this.state.id + 1
+    })
+    this.props.addUser(this.state.id, this.state.FullName, this.state.Email, this.state.Password, this.state.isLogged)
+    // this.refs.toast.show('Success, Go to Login Page.')
+    alert('Success, Go to Login Page.')
+    this.handleClear()
+    
     Keyboard.dismiss();
   }
 
@@ -96,11 +111,11 @@ class SignUpScreen extends Component {
     return (
         <Container>
           <Content padder>
-            <View style={Styles.wrapper}>
-              <Text style={Styles.headerText}> 
+            <View>
+              <Text style={theme.headerText}> 
                 Sign Up 
               </Text>
-              <Text style={Styles.subHeadText}>
+              <Text style={theme.subHeadText}>
                 By signing up, you accept our User Notice and Privacy Policy.
               </Text>
               <Card>
@@ -108,28 +123,32 @@ class SignUpScreen extends Component {
                     <TextInput
                       ref={input => { this.nameInput = input }}
                       onChangeText={this.nameChangeHandler}
-                      style={Styles.inputText}
+                      style={theme.textInputStyle}
                       placeholder="Full Name" />
-                    {this.state.isName ? <Text style={Styles.errorText}>Name is Short.</Text>: null}
+                    {this.state.isName ? <Text style={theme.errorText}>Name required.</Text>: null}
                 </CardItem>
                 <CardItem>
                     <TextInput 
                       ref={input => { this.emailInput = input }}
                       onChangeText={this.emailChangeHandler}
-                      style={Styles.inputText}
+                      style={theme.textInputStyle}
                       placeholder="Email" />
-                    {this.state.isEmail ? <Text style={Styles.errorText}>Invalid Email </Text>: null}
+                    {this.state.isEmail ? <Text style={theme.errorText}>Invalid Email </Text>: null}
                 </CardItem>
                 <CardItem>
                     <TextInput 
                       ref={input => { this.passwordInput = input }}
                       onChangeText={this.passwordChangeHandler}
-                      style={Styles.inputText}
+                      style={theme.textInputStyle}
                       placeholder="Password"
                       secureTextEntry={true} />
-                    {this.state.isPass ? <Text style={Styles.errorText}>Weak</Text> : null}
+                    {this.state.isPass ? <Text style={theme.errorText}>Weak</Text> : null}
                 </CardItem>
-                  <Button block onPress={this.handleRegister}> 
+                  <Button 
+                    style={{color: "#3F51B5"}} block 
+                    onPress={this.handleRegister}
+                    
+                  > 
                     <Text>Register</Text>
                   </Button>
               </Card>
@@ -142,7 +161,7 @@ class SignUpScreen extends Component {
             </View>
             <Toast
                 ref="toast"
-                style={Styles.toastBackgroundColor}
+                style={{backgroundColor: variable.cSuccess}}
                 position='bottom'
                 positionValue={200}
                 fadeInDuration={200}

@@ -6,6 +6,7 @@ import HeaderComponent from '../component/HeaderComponent'
 import ContactScreen from './ContactScreen';
 import Styles from './Styles';
 import {title} from '../constants/constTitles'
+import theme from '../../Theme/theme';
 
 class ProfileScreen extends Component {
     
@@ -22,7 +23,7 @@ class ProfileScreen extends Component {
                 <Content>
                     <View>
                         <View style={Styles.profileHeaderView}>
-                            <Text style={Styles.profileHeaderText}>  Purvang </Text>
+                            <Text style={[theme.headerText,{top:43}]}>  Purvang </Text>
                         </View>
                         <View style={Styles.profileHeaderIconView}> 
                             <Thumbnail source={require('../images/user_profile.png')} style={Styles.profileHeaderIconStyle}/>

@@ -74,7 +74,7 @@ export default class GalleryScreen extends Component {
     render() {
         return (
             <View>
-                <HeaderComponent title={title.Gallery}/>
+                <HeaderComponent title={title.Gallery} style={{color: 'blue'}}/>
                 <View>
                     {this.state.SwitchOnValueHolder ? 
                         <Text style={Styles.galleryLayoutText}>

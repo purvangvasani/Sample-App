@@ -8,6 +8,7 @@ import {authAddUser} from '../../actions/Auth'
 import {title} from '../constants/constTitles'
 import Styles from './Styles'
 import HeaderComponent from '../component/HeaderComponent';
+import theme from '../../Theme/theme';
 
 class HomeScreen extends Component {
 
@@ -21,19 +22,15 @@ class HomeScreen extends Component {
     )
   }
 
-  // handleLogout=()=>{
-  //   this.props.addUser(this.props.prod.FullName, this.props.prod.Email, this.props.prod.Password, false)
-  //   this.props.navigation.navigate('Home')
-  // }
 
   render() {
     if(this.state.isLogged){
       return (
         <Container>
-          <HeaderComponent title={title.Home}/>
+          <HeaderComponent title={title.Home} />
           <Content padder>
-            <View style={Styles.wrapper}>
-              <Text style={Styles.headerText}>Welcome, </Text>
+            <View>
+              <Text style={theme.headerText}>Welcome, </Text>
             </View>
             <View> 
               <Button block onPress={this.handleLogout}>
@@ -49,8 +46,8 @@ class HomeScreen extends Component {
         <Container>
           <HeaderComponent />
           <Content padder>
-            <View style={Styles.wrapper}>
-              <Text style={Styles.headerText}>Home Screen </Text>
+            <View>
+              <Text style={theme.headerText}>Home Screen </Text>
             </View>
           </Content>
         </Container>

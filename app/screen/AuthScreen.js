@@ -9,6 +9,7 @@ import SignUpScreen from '../screen/SignupScreen'
 import { Button, Text, View, Container } from 'native-base';
 import ForgetPassword from '../screen/ForgetPassword';
 import HeaderComponent from '../component/HeaderComponent';
+import theme from '../../Theme/theme';
 
 class AuthScreen extends Component {
 

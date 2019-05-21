@@ -7,6 +7,8 @@ import {authUpdateUser} from '../../actions/Auth'
 
 import Styles from './Styles'
 import { Container, Content, Text, Card, CardItem, Button, Col, Grid } from 'native-base';
+import theme from '../../Theme/theme';
+import { validateEmail, validatePassword } from '../component/validate';
 
 class LoginScreen extends Component {
 
@@ -49,18 +51,17 @@ class LoginScreen extends Component {
   }
 
   handleEmailChange=(value)=>{
-    var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; 
-
-    if(pattern.test(value)){
-      this.setState({
-        Email: value,
-        isEmail: false
-      })
-    }
-    else if(!pattern.test(value)){
+    let resp = validateEmail(value);
+    if(resp === 0){
       this.setState({
         isEmail: true,
         Email: ''
+      })
+    }
+    else if(resp === 1){
+      this.setState({
+        Email: value,
+        isEmail: false
       })
     }
   }
@@ -70,13 +71,13 @@ class LoginScreen extends Component {
   }
 
   handlePassChange=(value)=>{
-    if(value.length < 4){
+    if(!validatePassword(value)){
       this.setState({
         Password: '',
         isPass: true
       })
     }
-    else if(value.length > 4){
+    else {
       this.setState({
         isPass: false,
         Password: value
@@ -92,10 +93,10 @@ class LoginScreen extends Component {
     return (
       <Container>
           <Content padder>
-            <View style={Styles.wrapper}>
+            <View>
               <Grid>
                 <Col size={75}>
-                  <Text style={Styles.headerText}> 
+                  <Text style={theme.headerText}> 
                     Log in to your account
                   </Text>
                 </Col>
@@ -111,21 +112,21 @@ class LoginScreen extends Component {
                       ref={input => { this.emailInput = input }}
                       onChangeText={this.handleEmailChange}
                       name="email"
-                      style={Styles.inputText}
+                      style={theme.textInputStyle}
                       placeholder="Email" />
-                    {this.state.isEmail ? <Text style={Styles.errorText}>Error</Text>: null}
+                    {this.state.isEmail ? <Text style={theme.errorText}>Error</Text>: null}
                 </CardItem>
                 <CardItem>
                     <TextInput 
                       ref={input => { this.passwordInput = input }}
                       onChangeText={this.handlePassChange}
-                      style={Styles.inputText}
+                      style={theme.textInputStyle}
                       placeholder="Password"
                       secureTextEntry={true} />
-                    {this.state.isPass ? <Text style={Styles.errorText}>Error</Text>: null}
+                    {this.state.isPass ? <Text style={theme.errorText}>Error</Text>: null}
                 </CardItem>
-                  <Button block onPress={this.handleLogIn}> 
-                    <Text>Log In</Text>
+                  <Button block style={theme.btnPrimaryColor} onPress={this.handleLogIn}> 
+                    <Text>Sign In</Text>
                   </Button>
               </Card>
             </View>

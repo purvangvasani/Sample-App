@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Text,
-    View,} from 'react-native';
+import { Text, View} from 'react-native';
 import { Button, Card, CardItem, Left, Right, Content } from 'native-base';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import Styles from './Styles';
+import theme from '../../Theme/theme';
 
 class ContactCard extends Component {
     render(contact_name, contact_number){
@@ -12,16 +10,14 @@ class ContactCard extends Component {
                 <Card>
                     <CardItem>
                         <Left>
-                            <Text style={Styles.contactCardName}>{this.props.contact_name}</Text>
+                            <Text style={theme.listItems}>{this.props.contact_name}</Text>
                         </Left>
-                        <Content>
-                            <Text style={Styles.contactCardNumber}>{this.props.contact_number}</Text>
-                        </Content>
-                        {/* <Right>
-                            <Button transparent onPress={this._toggleModal}>
-                                <Icon name="trash" style={{fontSize : 20, color:'red'}} />
-                            </Button>
-                        </Right> */}
+                        {/* <Content>
+                            <Text style={theme.listItems}>{this.props.contact_number}</Text> 
+                        </Content> */}
+                        <Right>
+                            <Text style={theme.listItems}>{this.props.contact_number}</Text>
+                        </Right>
                     </CardItem>
                 </Card>
             </View>

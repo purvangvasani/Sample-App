@@ -6,6 +6,8 @@ import {connect} from 'react-redux'
 import {addContactInfo} from '../../actions/contact'
 
 import Styles from './Styles';
+import theme from '../../Theme/theme';
+import { validateName, validateNumber } from './validate';
 
 class AddContactList extends Component {
 
@@ -15,20 +17,24 @@ class AddContactList extends Component {
     }
 
     handleAddEvent=()=>{
-        if(this.state.ContactName === ''){
+        validateName(this.state.ContactName);
+        if(!validateName(this.state.ContactName)){
             alert("Name cannot be empty..")
         }
-        else if(this.state.ContactNumber === ''){
-            alert("Number cannot be empty..")
-        }
-        else{
-            if(this.state.ContactNumber.length != 10){
-                alert("The Number must be of 10 digits...")
+        else {
+            let resp = validateNumber(this.state.ContactNumber);
+            if(resp === 1){
+                alert("Number cannot be empty..")
             }
-            else{
+            else if(resp === 2){
+                alert("Number must contain 10 digits..")
+            }
+            else if(resp === 0){
+                alert("Success!!")
                 this.props.addContact(this.state.ContactName, this.state.ContactNumber)
                 this.handleClear();
             }
+            
         }
     }
 
@@ -63,7 +69,7 @@ class AddContactList extends Component {
                         onChangeText={this.handleNumberChange}
                         style={Styles.addContactTextInput}
                         placeholder = "Contact Number"/>
-                    <Button style={Styles.addContactButtonView} onPress={this.handleAddEvent}> 
+                    <Button style={[theme.btnDanger,{padding: 15}]} onPress={this.handleAddEvent}> 
                         <Text style={Styles.addContactButtonText}>Add</Text>
                     </Button>
                 </Content>

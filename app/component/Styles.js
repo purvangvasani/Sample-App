@@ -1,23 +1,23 @@
 import {StyleSheet} from 'react-native'
 
 const Styles = StyleSheet.create({
-    addContactTextInput:{
+    addContactTextInput: {
         borderWidth: 1, 
         borderColor: 'lightgrey', 
         marginBottom: 5,
     },
-    addContactButtonView:{
+    addContactButtonView: {
         paddingLeft: 15, 
         paddingRight: 15
     },
-    addContactButtonText:{
+    addContactButtonText: {
         color: 'white', 
         fontWeight: 'bold',
     },
     contactCardName: {
         marginTop: 10,
         marginLeft: 30,
-        marginRight: 20,
+        marginRight: 30,
         fontSize: 16,
         fontWeight: 'bold'
     },
@@ -26,12 +26,12 @@ const Styles = StyleSheet.create({
         marginLeft: "auto",
         marginRight: 30,
         fontSize: 16,
-        fontWeight: "bold",
+        fontWeight: 'bold',
     },
-    headerTextStyle:{
+    headerTextStyle: {
         color: 'white', 
         fontWeight: 'bold'
     },
 })
 
-export default Styles 
+export default Styles

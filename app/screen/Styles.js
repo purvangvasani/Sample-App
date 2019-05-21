@@ -54,8 +54,8 @@ const Styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     wrapper: {
-        flex: 1,
-        padding: 10
+        // flex: 1,
+        // padding: 10
     },
     headerText: {
         fontSize: 20,
@@ -115,11 +115,11 @@ const Styles = StyleSheet.create({
     textUnderline: {
         textDecorationLine: 'underline'
     },
-    successText: {
-        flex: 1,
-        color: 'green',
-        textAlign: 'right',
-    },
+    // successText: {
+    //     flex: 1,
+    //     color: 'green',
+    //     textAlign: 'right',
+    // },
     iconLoginInfo:{
         fontSize: 24,
         color: '#3C53B4'

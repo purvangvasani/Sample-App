@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { Header, Button, Left, Body, Right, Icon, Text } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import Styles from "./Styles";
+import theme from "../../Theme/theme";
 
 class HeaderComponent extends Component{
     render(){
@@ -13,7 +14,7 @@ class HeaderComponent extends Component{
                     </Button>
                 </Left>
                 <Body>
-                    <Text style={Styles.headerTextStyle}>
+                    <Text style={theme.headerText}>
                         {this.props.title}
                     </Text>
                 </Body>
