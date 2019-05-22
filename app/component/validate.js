@@ -35,7 +35,7 @@ export function validateNumber(x){
 }
 
 export function validateEmail(x){
-    var pattern = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z_]+?\.[a-zA-Z]{2,4}$/;
+    var pattern = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9_]+?(\.[a-zA-Z0-9]{2,4}){1,3}$/;
     let email = x;
     if(email.length == 0){
         return 'Email Required'
