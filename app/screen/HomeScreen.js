@@ -49,6 +49,11 @@ class HomeScreen extends Component {
             <View>
               <Text style={theme.headerText}>Home Screen </Text>
             </View>
+            <View>
+              <Button style={theme.button}>
+                <Text style={theme.buttonText}>Hey</Text>
+              </Button>
+            </View>
           </Content>
         </Container>
       )

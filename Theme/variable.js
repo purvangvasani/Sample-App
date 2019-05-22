@@ -54,7 +54,7 @@ export const variable = {
     alignRight: 'right',
     alignCenter: 'center',
     alignLeft: 'Left',
-    marginTop_10: 10,
+    margin_10: 10,
     marginRight_30: 30,
 
 }

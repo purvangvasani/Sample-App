@@ -7,7 +7,7 @@ import {authAddUser} from '../../actions/Auth'
 import Styles from './Styles'
 import theme from '../../Theme/theme';
 import { variable } from '../../Theme/variable';
-import { validateName, validateEmail, validatePassword } from '../component/validate';
+import { validateName, validateEmail, validatePassword, required } from '../component/validate';
 
 class SignUpScreen extends Component {
 
@@ -19,81 +19,80 @@ class SignUpScreen extends Component {
     FullName: '',
     Email: '',
     Password: '',
-    isPass: false
+    isPass: false,
+    errName: '',
+    errEmail: '',
+    errPass:''
   }
   
   nameChangeHandler=(value)=>{
-    if(!validateName(value)){
+    let resp = validateName(value)
+    if(resp != 'true'){
       this.setState({
         FullName: '',
         isName: true,
+        errName: resp
       })
     }
     else{
       this.setState({
         FullName: value,
         isName: false,
+        errName: ''
       })
     }
   }
 
   emailChangeHandler=(value)=>{
-    
     let resp = validateEmail(value);
-    
-    if(resp === 0){
+    if(resp != 'true'){
       this.setState({
         Email: '',
-        isEmail: true
+        isEmail: true,
+        errEmail: resp
       }) 
     }
-    else if(resp === 1){
+    else{
       this.setState({
         Email: value,
-        isEmail: false
+        isEmail: false,
+        errEmail: ''
       }) 
     }
-    // var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; 
-
-    // if(pattern.test(value)){
-    //   this.setState({
-    //     Email: value,
-    //     isEmail: false
-    //   }) 
-    // }
-    // else if(!pattern.test(value)){
-    //   this.setState({
-    //     Email: '',
-    //     isEmail: true
-    //   }) 
-    // }
   }
 
   passwordChangeHandler=(value)=>{
-    if(!validatePassword(value)){
+    let resp = validatePassword(value)
+    if(resp != 'true'){
       this.setState({
         Password: '',
         isPass: true,
+        errPass: resp
       })
     }
     else{
       this.setState({
         Password: value,
         isPass: false,
+        errPass: ''
       })
     }
   }
 
   handleRegister=()=>{
-    
-    this.setState({
-      id: this.state.id + 1
-    })
-    this.props.addUser(this.state.id, this.state.FullName, this.state.Email, this.state.Password, this.state.isLogged)
-    // this.refs.toast.show('Success, Go to Login Page.')
-    alert('Success, Go to Login Page.')
-    this.handleClear()
-    
+    if(this.state.FullName === '' || this.state.Email === '' || this.state.Password === ''){
+      alert('Fill all the fields')
+    }
+    else {
+      this.setState({
+        id: this.state.id + 1
+      })
+      this.props.addUser(this.state.id, this.state.FullName, this.state.Email, this.state.Password, this.state.isLogged)
+      // this.refs.toast.show('Success, Go to Login Page.')
+      alert('Success, Go to Login Page.')
+      this.handleClear()
+    }
+
     Keyboard.dismiss();
   }
 
@@ -105,6 +104,39 @@ class SignUpScreen extends Component {
 
   handleLogIn=()=>{
      this.props.navigation.navigate('Login')
+  }
+
+  handleNameRequired=()=>{
+    let resp = required(this.state.FullName)
+    if(resp != 'true'){
+      this.setState({
+        FullName: '',
+        isName: true,
+        errName: resp
+      })
+    }
+  }
+
+  handleEmailRequired=()=>{
+    let resp = required(this.state.Email)
+    if(resp != 'true'){
+      this.setState({
+        Email: '',
+        isEmail: true,
+        errEmail: resp
+      })
+    }
+  }
+
+  handlePassRequired=()=>{
+    let resp = required(this.state.Password)
+    if(resp != 'true'){
+      this.setState({
+        Password: '',
+        isPass: true,
+        errPass: resp
+      })
+    }
   }
 
   render() {
@@ -121,28 +153,31 @@ class SignUpScreen extends Component {
               <Card>
                 <CardItem>
                     <TextInput
+                      onBlur={this.handleNameRequired}
                       ref={input => { this.nameInput = input }}
                       onChangeText={this.nameChangeHandler}
                       style={theme.textInputStyle}
                       placeholder="Full Name" />
-                    {this.state.isName ? <Text style={theme.errorText}>Name required.</Text>: null}
+                    {this.state.isName ? <Text style={theme.errorText}>{this.state.errName}.</Text>: null}
                 </CardItem>
                 <CardItem>
                     <TextInput 
+                      onBlur={this.handleEmailRequired}
                       ref={input => { this.emailInput = input }}
                       onChangeText={this.emailChangeHandler}
                       style={theme.textInputStyle}
                       placeholder="Email" />
-                    {this.state.isEmail ? <Text style={theme.errorText}>Invalid Email </Text>: null}
+                    {this.state.isEmail ? <Text style={theme.errorText}>{this.state.errEmail} </Text>: null}
                 </CardItem>
                 <CardItem>
                     <TextInput 
+                      onBlur={this.handlePassRequired}
                       ref={input => { this.passwordInput = input }}
                       onChangeText={this.passwordChangeHandler}
                       style={theme.textInputStyle}
                       placeholder="Password"
                       secureTextEntry={true} />
-                    {this.state.isPass ? <Text style={theme.errorText}>Weak</Text> : null}
+                    {this.state.isPass ? <Text style={theme.errorText}>{this.state.errPass}</Text> : null}
                 </CardItem>
                   <Button 
                     style={{color: "#3F51B5"}} block 

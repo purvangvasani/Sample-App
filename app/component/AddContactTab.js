@@ -7,34 +7,31 @@ import {addContactInfo} from '../../actions/contact'
 
 import Styles from './Styles';
 import theme from '../../Theme/theme';
-import { validateName, validateNumber } from './validate';
+import { validateName, validateNumber, required } from './validate';
 
 class AddContactList extends Component {
 
     state={
         ContactName: '',
-        ContactNumber: ''
+        ContactNumber: '',
+        nameRequired: false
     }
 
     handleAddEvent=()=>{
-        validateName(this.state.ContactName);
-        if(!validateName(this.state.ContactName)){
-            alert("Name cannot be empty..")
+        let res = validateName(this.state.ContactName);
+        if(res != 'true'){
+            alert(res)
         }
         else {
             let resp = validateNumber(this.state.ContactNumber);
-            if(resp === 1){
-                alert("Number cannot be empty..")
+            if(resp != 'true'){
+                alert(resp)
             }
-            else if(resp === 2){
-                alert("Number must contain 10 digits..")
-            }
-            else if(resp === 0){
+            else if(resp == 'true'){
                 alert("Success!!")
                 this.props.addContact(this.state.ContactName, this.state.ContactNumber)
                 this.handleClear();
-            }
-            
+            }  
         }
     }
 
@@ -54,6 +51,7 @@ class AddContactList extends Component {
             ContactNumber: value
         })
     }
+    
 
     render() {
         return (
@@ -64,6 +62,7 @@ class AddContactList extends Component {
                         onChangeText={this.handleNameChange}
                         style={Styles.addContactTextInput}
                         placeholder = "Contact Name"/>
+                        {this.state.nameRequired ? <Text style={theme.errorText}>Error</Text> : null}
                     <TextInput 
                         ref={input => { this.numberInput = input }}
                         onChangeText={this.handleNumberChange}

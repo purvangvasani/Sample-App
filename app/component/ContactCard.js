@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
-import { Text, View} from 'react-native';
-import { Button, Card, CardItem, Left, Right, Content } from 'native-base';
+import { Text, View, TouchableOpacity} from 'react-native';
+import { Button, Card, CardItem, Left, Right, Content, Thumbnail } from 'native-base';
 import theme from '../../Theme/theme';
 
 class ContactCard extends Component {
     render(contact_name, contact_number){
         return(
             <View>
-                <Card>
+                <Card style={theme.list}>
                     <CardItem>
-                        <Left>
+                        <Content>
+                            <View style={theme.thumbnail}>
+                                <Text style={theme.thumbnailText}>{this.props.contact_name[0]}</Text>
+                            </View>
+                        </Content>
+                        <Content>
                             <Text style={theme.listItems}>{this.props.contact_name}</Text>
-                        </Left>
-                        {/* <Content>
-                            <Text style={theme.listItems}>{this.props.contact_number}</Text> 
-                        </Content> */}
-                        <Right>
+                        </Content>
+                        <Content>
                             <Text style={theme.listItems}>{this.props.contact_number}</Text>
-                        </Right>
+                        </Content>
+                        <Content>
+                            <TouchableOpacity style={theme.button}>
+                                <Text style={theme.buttonText}>Hey</Text>
+                            </TouchableOpacity>
+                        </Content>
                     </CardItem>
                 </Card>
             </View>
