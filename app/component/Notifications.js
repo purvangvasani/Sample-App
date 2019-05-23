@@ -11,8 +11,13 @@ class Notifications extends Component {
     }
     renderItem = ({ item }) => (
         <ListItem
-            rightIcon={<TouchableHighlight><Icon name="chevron-small-right" style={{fontSize:24}} /></TouchableHighlight>}
+            rightIcon={
+                <TouchableHighlight>
+                    <Icon name="chevron-small-right" style={{fontSize:24}} />
+                </TouchableHighlight>
+            }
             bottomDivider={true}
+            topDivider={true}
             containerStyle={{backgroundColor: item.unRead,}}
             titleStyle={{fontSize: 16, fontWeight: 'bold',}}
             onPress={this.handleClick}

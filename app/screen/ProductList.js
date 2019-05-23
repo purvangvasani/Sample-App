@@ -15,7 +15,7 @@ class ProductList extends Component {
     render() {
         return (
             <Container>
-                <HeaderComponent title={title.ProductList}/>
+                {/* <HeaderComponent title={title.ProductList}/> */}
                 <Content padder style={{backgroundColor: 'lightgrey'}}>
                     <Products />
                 </Content>

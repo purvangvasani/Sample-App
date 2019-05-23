@@ -9,8 +9,8 @@ export class NotificationScreen extends Component {
     render() {
         return (
             <Container>
-                <HeaderComponent title={title.Notification}/>
-                <Content padder>
+                {/* <HeaderComponent title={title.Notification}/> */}
+                <Content style={{borderTopColor: 'grey',borderTopWidth: 0.8,}}>
                     <Notifications />
                 </Content>
             </Container>

@@ -14,29 +14,7 @@ class Products extends Component {
     }
 
     renderRaw=({item})=>{
-        return(<Card style={{marginBottom: 20,}}>
-                <CardItem  style={{borderBottomWidth: 1, borderColor: 'grey',}}>
-                    <Grid>
-                        <Col size={15}>
-                            <View style={{backgroundColor: 'lightgrey', width: 40, height: 40, borderWidth: 1, borderColor: 'lightgrey', borderRadius: 30,}}>
-                                <Text style={{fontSize: 26, fontWeight: 'bold', textAlign: 'center'}}>{item.title[0]}</Text>
-                            </View>
-                        </Col>
-                        <Col size={70}>
-                             <View style={{paddingLeft: 25}}>
-                                <Text style={{fontSize: 18, fontWeight: 'bold',}}>{item.title}</Text>
-                                <Text>{item.subtitle}</Text>
-                            </View>
-                        </Col>
-                        <Col size={15}>
-                            <View style={{ backgroundColor: 'white', width: 45, height: 45, borderWidth: 1, borderColor: 'lightgrey', borderRadius: 30,}}> 
-                            <TouchableOpacity onPress={this.handleFavorite.bind(this, item.id)}>
-                                <Icon name="heart" color={this.state.color} style={{fontSize: 24, textAlign: 'center', paddingTop: 10}}/>
-                            </TouchableOpacity>
-                            </View>
-                        </Col>
-                    </Grid>
-                </CardItem>
+        return(<Card style={{marginBottom: 10,}}>
                 <CardItem>
                     <Grid>
                         <Col size={25} >
@@ -76,6 +54,28 @@ class Products extends Component {
                                         </Button>
                                     </Col>
                                 </Grid>
+                            </View>
+                        </Col>
+                    </Grid>
+                </CardItem>
+                <CardItem  style={{borderTopWidth: 1, borderColor: 'grey',}}>
+                    <Grid>
+                        <Col size={15}>
+                            <View style={{backgroundColor: 'lightgrey', width: 40, height: 40, borderWidth: 1, borderColor: 'lightgrey', borderRadius: 30,}}>
+                                <Text style={{fontSize: 26, fontWeight: 'bold', textAlign: 'center'}}>{item.title[0]}</Text>
+                            </View>
+                        </Col>
+                        <Col size={70}>
+                             <View style={{paddingLeft: 25}}>
+                                <Text style={{fontSize: 18, fontWeight: 'bold',}}>{item.title}</Text>
+                                <Text>{item.subtitle}</Text>
+                            </View>
+                        </Col>
+                        <Col size={15}>
+                            <View style={{ backgroundColor: 'white', width: 45, height: 45, borderWidth: 1, borderColor: 'lightgrey', borderRadius: 30,}}> 
+                            <TouchableOpacity onPress={this.handleFavorite.bind(this, item.id)}>
+                                <Icon name="heart" color={this.state.color} style={{fontSize: 24, textAlign: 'center', paddingTop: 10}}/>
+                            </TouchableOpacity>
                             </View>
                         </Col>
                     </Grid>

@@ -6,7 +6,7 @@ import NotificationScreen from './NotificationScreen';
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Notification: NotificationScreen,
+    Notifications: NotificationScreen,
     ProductList: ProductList,
   },
   {
@@ -15,7 +15,7 @@ const TabNavigator = createBottomTabNavigator(
         const { routeName } = navigation.state;
         let IconComponent = Ionicons;
         let iconName;
-        if (routeName === 'Notification') {
+        if (routeName === 'Notifications') {
           iconName = `ios-notifications`;
         } else if (routeName === 'ProductList') {
           iconName = `ios-keypad`;
