@@ -7,6 +7,7 @@ import AuthScreen from './screen/AuthScreen';
 import HomeScreen from './screen/HomeScreen';
 import ProfileScreen from './screen/ProfileScreen';
 import GalleryScreen from './screen/GalleryScreen';
+import NewComponentScreen from './screen/NewComponentScreen';
 
 class App extends Component {
 
@@ -31,6 +32,7 @@ const AppDrawerNavigator = createDrawerNavigator({
   Home:  HomeScreen,
   Profile: ProfileScreen,
   Gallery: GalleryScreen,
+  NewComponent: NewComponentScreen,
   Login: {screen: AuthScreen},
 }, 
 {
