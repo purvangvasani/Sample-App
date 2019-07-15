@@ -52,13 +52,13 @@ class LoginScreen extends Component {
 
   handleEmailChange=(value)=>{
     let resp = validateEmail(value);
-    if(resp === 0){
+    if(resp != 'true'){
       this.setState({
         isEmail: true,
         Email: ''
       })
     }
-    else if(resp === 1){
+    else{
       this.setState({
         Email: value,
         isEmail: false
@@ -71,7 +71,8 @@ class LoginScreen extends Component {
   }
 
   handlePassChange=(value)=>{
-    if(!validatePassword(value)){
+    let resp = validatePassword(value)
+    if(resp != 'true'){
       this.setState({
         Password: '',
         isPass: true
@@ -114,7 +115,7 @@ class LoginScreen extends Component {
                       name="email"
                       style={theme.textInputStyle}
                       placeholder="Email" />
-                    {this.state.isEmail ? <Text style={theme.errorText}>Error</Text>: null}
+                    {this.state.isEmail ? <Text style={theme.errorText}>Invalid Email</Text>: null}
                 </CardItem>
                 <CardItem>
                     <TextInput 
@@ -123,7 +124,7 @@ class LoginScreen extends Component {
                       style={theme.textInputStyle}
                       placeholder="Password"
                       secureTextEntry={true} />
-                    {this.state.isPass ? <Text style={theme.errorText}>Error</Text>: null}
+                    {this.state.isPass ? <Text style={theme.errorText}>Week Password</Text>: null}
                 </CardItem>
                   <Button block style={theme.btnPrimaryColor} onPress={this.handleLogIn}> 
                     <Text>Sign In</Text>

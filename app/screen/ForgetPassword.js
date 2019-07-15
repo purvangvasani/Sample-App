@@ -30,9 +30,6 @@ class ForgetPasswordScreen extends Component {
           Email: this.props.prod[i].Email,
           Password: this.props.prod[i].Password,
         })
-        console.log('====================================');
-        console.log(this.state);
-        console.log('====================================');
       }
     }
     alert("Email not found")
@@ -51,12 +48,13 @@ class ForgetPasswordScreen extends Component {
   handleEmailChange=(value)=>{
     let resp = validateEmail(value);
 
-    if(resp === 1){
+    if(resp == 'true'){
       this.setState({
         email: value,
         error: false,
       })
-    }else{
+    }
+    else{
       this.setState({
         error: true,
         email: '',
@@ -88,7 +86,7 @@ class ForgetPasswordScreen extends Component {
                       style={theme.textInputStyle}
                       placeholder="Enter Email Address" />
 
-                    {this.state.error ? <Text style={theme.errorText}>Error</Text>: null}
+                    {this.state.error ? <Text style={theme.errorText}>Invalid Email</Text>: null}
                 </CardItem>
                   <Button style={theme.btnPrimary} block onPress={this.handleSubmit}> 
                     <Text>Submit</Text>
